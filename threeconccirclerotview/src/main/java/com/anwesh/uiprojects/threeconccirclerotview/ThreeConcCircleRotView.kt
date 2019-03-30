@@ -215,4 +215,13 @@ class ThreeConcCircleRotView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : ThreeConcCircleRotView {
+            val view : ThreeConcCircleRotView = ThreeConcCircleRotView(activity)
+            activity.setContentView(view)
+            return view 
+        }
+    }
 }
