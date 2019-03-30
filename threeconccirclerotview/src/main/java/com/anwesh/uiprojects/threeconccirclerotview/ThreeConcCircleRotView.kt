@@ -146,7 +146,7 @@ class ThreeConcCircleRotView(ctx : Context) : View(ctx) {
 
         fun draw(canvas : Canvas, paint : Paint) {
             canvas.drawTCCRNode(i, state.scale, paint)
-            next?.draw(canvas, paint)
+            prev?.draw(canvas, paint)
         }
 
         fun update(cb : (Int, Float) -> Unit) {
@@ -174,12 +174,11 @@ class ThreeConcCircleRotView(ctx : Context) : View(ctx) {
 
     data class ThreeConcCircleRot(var i : Int) {
 
-        private val root : TCCRNode = TCCRNode(0)
-        private var curr : TCCRNode = root
+        private var curr : TCCRNode = TCCRNode(0)
         private var dir : Int = 1
 
         fun draw(canvas : Canvas, paint : Paint) {
-            root.draw(canvas, paint)
+            curr.draw(canvas, paint)
         }
 
         fun update(cb : (Int, Float) -> Unit) {
