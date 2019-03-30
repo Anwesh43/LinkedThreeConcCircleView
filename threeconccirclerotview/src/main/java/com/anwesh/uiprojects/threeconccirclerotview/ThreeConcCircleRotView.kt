@@ -22,6 +22,7 @@ val sizeFactor : Float = 2.9f
 val foreColor : Int = Color.parseColor("#673AB7")
 val backColor : Int = Color.parseColor("#BDBDBD")
 val parts : Int = 2
+val delay : Long = 20
 
 fun Int.inverse() : Float = 1f / this
 fun Float.scaleFactor() : Float = Math.floor(this / scDiv).toFloat()
@@ -44,11 +45,12 @@ fun Canvas.drawTCCRNode(i : Int, scale : Float, paint : Paint) {
     paint.color = foreColor
     paint.strokeWidth = Math.min(w, h) / strokeFactor
     paint.strokeCap = Paint.Cap.ROUND
+    paint.style = Paint.Style.STROKE
     save()
     translate(gap * (i + 1), h / 2)
     for (j in 0..(parts - 1)) {
         save()
-        rotate(180f * sc2)
+        rotate(180f * j * sc2)
         for (k in 0..(circles - 1)) {
             val sc : Float = sc1.divideScale(k, circles)
             val r : Float = rGap * (k + 1)
@@ -104,7 +106,7 @@ class ThreeConcCircleRotView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(delay)
                     view.invalidate()
                 } catch(ex : Exception) {
 
@@ -221,7 +223,7 @@ class ThreeConcCircleRotView(ctx : Context) : View(ctx) {
         fun create(activity : Activity) : ThreeConcCircleRotView {
             val view : ThreeConcCircleRotView = ThreeConcCircleRotView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
 }
