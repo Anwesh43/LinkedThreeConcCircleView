@@ -191,4 +191,26 @@ class ThreeConcCircleRotView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : ThreeConcCircleRotView) {
+
+        private val animator : Animator = Animator(view)
+        private val tccr : ThreeConcCircleRot = ThreeConcCircleRot(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            tccr.draw(canvas, paint)
+            animator.animate {
+                tccr.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            tccr.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
